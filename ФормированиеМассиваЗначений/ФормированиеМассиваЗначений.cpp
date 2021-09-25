@@ -1,5 +1,5 @@
 ﻿// Лабораторная работа №1 
-// Выполнили студенты группы м3о-219Бк-20 Бокарев С.М. Катвалян А.А.
+// Выполнили студенты группы м3о-219Бк-50000 Бокарев С.М. Катвалян А.А.
 
 #include <iostream>
 #include <stdio.h>
@@ -51,7 +51,7 @@ void FillSin(double* arr, int n, int min, int max) {
     }*/
     
     for (int i = 0; i < n; i++) {
-        double res = 20 * sin(4 * 3.14159265 * ((float)i / (float)n));
+        double res = 50000 * sin(4 * 3.14159265 * ((float)i / (float)n));
 
         arr[i] = res;
     }
@@ -137,7 +137,7 @@ void FillFall(int* arr, int length, int min, int max) {
 void FillSaw(int* arr, int length, int min, int max) {
     int temp = min;
     for (int i = 0; i < length; i++) {
-        //A[i] = (((length / 20) * i) % (max - min)) + min;
+        //A[i] = (((length / 50000) * i) % (max - min)) + min;
         if (temp == max)  temp = min;
         arr[i] = temp;
         temp++;
@@ -146,7 +146,7 @@ void FillSaw(int* arr, int length, int min, int max) {
 
 void FillSin(int* arr, int length, int min, int max) {
     for (int i = 0; i < length; i++) {
-        int res = 20 * sin(4 * 3.14159265 * ((float)i / (float)length));
+        int res = 50000 * sin(4 * 3.14159265 * ((float)i / (float)length));
         
         arr[i] = int(res);
     }
@@ -187,73 +187,74 @@ int main()
     auto begin = chrono::steady_clock::now();
     // получаем время перед началом формирования последовательности
     
-    FillRand(arrFill, n, 10, 20);
-    cout << "Рандомная последовательность дробных чисел" << endl;
+    /*FillRand(arrFill, n, 10, 50000);
+    /*cout << "Рандомная последовательность дробных чисел" << endl;
     File << "Рандомная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
+    Writer(arrFill, n);*/
 
-    FillGrow(arrFill, n, 10, 20);
-    cout << "Возрастающая последовательность дробных чисел" << endl;
+    FillGrow(arrFill, n, 10, 50000);
+    /*cout << "Возрастающая последовательность дробных чисел" << endl;
     File << "Возрастающая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
+    Writer(arrFill, n);*/
 
 
-    FillFall(arrFill, n, 10, 20);
-    cout << "Убывающая последовательность дробных чисел" << endl;
+    FillFall(arrFill, n, 10, 50000);
+    /*cout << "Убывающая последовательность дробных чисел" << endl;
     File << "Убывающая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
+    Writer(arrFill, n);*/
 
 
-    FillSaw(arrFill, n, 10.0, 20.0);
-    cout << "Пилообразная последовательность дробных чисел" << endl;
+    FillSaw(arrFill, n, 10.0, 50000.0);
+    /*cout << "Пилообразная последовательность дробных чисел" << endl;
     File << "Пилообразная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
+    Writer(arrFill, n);*/
 
-    FillSin(arrFill, n, 10.0, 20.0);
-    cout << "Синусообразная последовательность дробных чисел" << endl;
+    FillSin(arrFill, n, 10.0, 50000.0);
+    /*cout << "Синусообразная последовательность дробных чисел" << endl;
     File << "Синусообразная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
+    Writer(arrFill, n);*/
 
-    FillStep(arrFill, n, 10.0, 20.0);
-    cout << "Ступенчатая последовательность дробных чисел" << endl;
+    FillStep(arrFill, n, 10.0, 50000.0);
+    /*cout << "Ступенчатая последовательность дробных чисел" << endl;
     File << "Ступенчатая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);
-
-    //delete[] arrFill;
+    Writer(arrFill, n);*/
+    
 
     int* Arr = new int[n];
 
-    FillRand(Arr, n, 10, 20);
-    cout << "Рандомная последовательность целых чисел" << endl;
+    FillRand(Arr, n, 10, 50000);
+    /*cout << "Рандомная последовательность целых чисел" << endl;
     File << "Рандомная последовательность целых чисел" << endl;
-    Writer(Arr, n);
+    Writer(Arr, n);*/
 
 
-    FillGrow(Arr, n, 10, 120);
-    cout << "Возрастающая последовательность целых чисел" << endl;
+    FillGrow(Arr, n, 10, 150000);
+    /*cout << "Возрастающая последовательность целых чисел" << endl;
     File << "Возрастающая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);
+    Writer(&Arr[0], n);*/
 
-    FillFall(Arr, n, 10, 120);
-    cout << "Убывающая последовательность целых чисел" << endl;
+    FillFall(Arr, n, 10, 150000);
+    /*cout << "Убывающая последовательность целых чисел" << endl;
     File << "Убывающая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);
+    Writer(&Arr[0], n);*/
 
-    FillSaw(Arr, n, 10, 20);
-    cout << "Пилообразная последовательность целых чисел" << endl;
+    FillSaw(Arr, n, 10, 50000);
+    /*cout << "Пилообразная последовательность целых чисел" << endl;
     File << "Пилообразная последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);
+    Writer(&Arr[0], n);*/
 
 
-    FillSin(&Arr[0], n, 10, 20);
-    cout << "Синусообразная последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);
+    FillSin(&Arr[0], n, 10, 50000);
+    /*cout << "Синусообразная последовательность целых чисел" << endl;
+    File << "Синусообразная последовательность целых чисел" << endl;
+    Writer(&Arr[0], n);*/
 
 
-    FillStep(&Arr[0], n, 10, 20);
-    cout << "Ступенчатая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);
-
+    FillStep(&Arr[0], n, 10, 50000);
+    /*cout << "Ступенчатая последовательность целых чисел" << endl;
+    File << "Ступенчатая последовательность целых чисел" << endl;
+    Writer(&Arr[0], n);*/
+    
 
     //delete [] Arr; почему-то не работает надо сделать
     //delete [] ArrFill; почему-то не работает надо подправить
