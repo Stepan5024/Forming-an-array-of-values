@@ -12,16 +12,17 @@
 
 using namespace std;
 
-void FillSaw(double* arr, int n, int min, int max);
-void FillSaw(int* arr, int length, int min, int max);
-void FillSin(double* arr, int n, int min, int max);
-void FillSin(int* arr, int length, int min, int max);
-void FillStep(double* arr, int n, double min, double max);
-void FillQuasi(double* arr, int n, int min, int max);
-void FillRand(double* arr, int n, int min, int max);
-void FillGrow(double* arr, int length, int min, int max);
+void FillSaw(double* arr, int n, double min, double max, double period);
+void FillSaw(int* arr, int length, int min, int max, int period);
+void FillSin(double* arr, int n, double min, double max, double period);
+void FillSin(int* arr, int length, int min, int max, int period);
+void FillStep(double* arr, int n, double min, double max, double period);
+void FillStep(int* arr, int n, int min, int max, int period);
+void FillRand(double* arr, int n, double min, double max);
+void FillRand(int* arr, int n, int min, int max);
+void FillGrow(double* arr, int length, double min, double max);
 void FillGrow(int* arr, int length, int min, int max);
-void FillFall(double* arr, int length, int min, int max);
+void FillFall(double* arr, int length, double min, double max);
 void FillFall(int* arr, int length, int min, int max);
 void Writer(int* A, int length);
 void Writer(double* A, int length);
@@ -29,90 +30,75 @@ void Writer(double* A, int length);
 ofstream File("C:\\Users\\bokar\\Documents\\operation.txt");
 
 
-
-void FillSaw(double* arr, int n, double min, double max) {
+void FillSaw(double* arr, int n, double min, double max, double period) {
+    period = max;
+    for (int i = 0; i < n; i++) {
+        arr[i] = fmod(i * period / 10.1, max - min) + min;
+    }
+    File << "Пилообразная последовательность дробных чисел" << endl;
+    Writer(arr, n);
+}
+void FillSin(double* arr, int n, double min, double max, double period) {
+    float k = period / (2 * PI);
 
     for (int i = 0; i < n; i++) {
-        arr[i] = fmod( i * max / 10.1, max - min) + min;
-        
-        
-    }
-
-
-}
-void FillSin(double* arr, int n, int min, int max) {
-    /*for (int i = 0; i < n; i++) {
-        double res = sin(4 * PI * ((float)i / (float) n));
-        res += 1.0;
-        res /= 2.0;
-        res += (max - min);
-        arr[i] = res;
-
-    }*/
-    
-    for (int i = 0; i < n; i++) {
-        double res = 50000 * sin(4 * 3.14159265 * ((float)i / (float)n));
-
+        double res =  min + max * sin(4 * 3.14159265 * ((float)i / (float)n) + 2 * PI * k);
         arr[i] = res;
     }
+    File << "Синусообразная последовательность дробных чисел" << endl;
+    Writer(arr, n);
 }
 
-void FillStep(double* arr, int n, double min, double max) {
-    
-
+void FillStep(double* arr, int n, double min, double max, double period) {
     double u = 0.0;
     for (int i = 0; i < n; i++) {
 
-        arr[i] = min + double((double)(i ) / 3.0) - 0.3 * (double)(i % 3);
+        arr[i] = min + double((double)(i) / period) - 0.3 * (fmod(i, period));
         u += 1.0;
         if (u == 2.0) u = 0.0;
         
     }
-
+    File << "Ступенчатая последовательность дробных чисел" << endl;
+    Writer(arr, n);
 }
 
-
-
-void FillRand(double* arr, int n, int min, int max) {
-
-    
+void FillRand(double* arr, int n, double min, double max) {
     for (int i = 0; i < n; i++) {
 
-        double ret = 10 + ((double)rand() / RAND_MAX) * (max - min);
-
-        arr[i] = ret;
-       
+        arr[i] = 10 + ((double)rand() / RAND_MAX) * (max - min);
     }
-
+    File << "Рандомная последовательность дробных чисел" << endl;
+    Writer(arr, n);
 }
 
 void FillRand(int* arr, int n, int min, int max) {
 
     for (int i = 0; i < n; i++) {
-        arr[i] = rand() % max + min;
+        arr[i] = rand() % (int)max + min;
     }
-
+    File << "Рандомная последовательность целых чисел" << endl;
+    Writer(arr, n);
 }
-void FillGrow(double* arr, int length, int min, int max) {
+
+void FillGrow(double* arr, int length, double min, double max) {
     double step = (double)((max - min) / (double)length);
     
     for (int i = length; i > 0; i--) {
-
         arr[length - i] = (double)((double)max - (double)step * i);
-       
     }
-
+    File << "Возрастающая последовательность дробных чисел" << endl;
+    Writer(arr, length);
 }
 
-void FillFall(double* arr, int length, int min, int max) {
+void FillFall(double* arr, int length, double min, double max) {
     
     double step = (double)((max - min) / (double)length);
     
     for (int i = 0; i < length; i++) {
-
         arr[i] = (double)((double)max - (double)step * i);
-        
     }
+    File << "Убывающая последовательность дробных чисел" << endl;
+    Writer(arr, length);
 }
 void FillGrow(int* arr, int length, int min, int max) {
     int step = 1 + (max - min) / length;
@@ -122,7 +108,8 @@ void FillGrow(int* arr, int length, int min, int max) {
         arr[i] = min + step * i;
     
     }
-
+    File << "Возрастающая последовательность целых чисел" << endl;
+    Writer(arr, length);
 }
 
 void FillFall(int* arr, int length, int min, int max) {
@@ -133,8 +120,11 @@ void FillFall(int* arr, int length, int min, int max) {
         arr[i] = max - step * i;
         
     }
+    File << "Убывающая последовательность целых чисел" << endl;
+    Writer(arr, length);
 }
-void FillSaw(int* arr, int length, int min, int max) {
+void FillSaw(int* arr, int length, int min, int max, int period) {
+    
     int temp = min;
     for (int i = 0; i < length; i++) {
         //A[i] = (((length / 50000) * i) % (max - min)) + min;
@@ -142,21 +132,32 @@ void FillSaw(int* arr, int length, int min, int max) {
         arr[i] = temp;
         temp++;
     }
+    File << "Пилообразная последовательность целых чисел" << endl;
+    Writer(arr, length);
 }
 
-void FillSin(int* arr, int length, int min, int max) {
+void FillSin(int* arr, int length, int min, int max, int period) {
+
+    float k = period / (2 * PI);
+
     for (int i = 0; i < length; i++) {
-        int res = 50000 * sin(4 * 3.14159265 * ((float)i / (float)length));
+        int res = min + max * sin(4 * 3.14159265 * ((float)i / (float)length) + 2 * PI * k);
+
+        arr[i] = res;
+    }
+    File << "Синусообразная последовательность целых чисел" << endl;
+    Writer(arr, length);
+
+}
+
+void FillStep(int* arr, int length, int min, int max, int period) {
+
+    for (int i = 0; i < length; i++) {
+        arr[i] = min + i / period;
         
-        arr[i] = int(res);
     }
-}
-
-void FillStep(int* arr, int length, int min, int max) {
-    for (int i = 0; i < length; i++) {
-        arr[i] = min + i / 3;
-        //arr[i] = i - (i % (length / 10));
-    }
+    File << "Ступечтая последовательность целых чисел" << endl;
+    Writer(arr, length);
 }
 void Writer(int* A, int length) {
     for (int i = 0; i < length; i++) {
@@ -184,78 +185,36 @@ int main()
     cin >> n;
     double* arrFill = new double[n];
 
-    auto begin = chrono::steady_clock::now();
-    // получаем время перед началом формирования последовательности
+    void (*LineralOperations[3])(double*, int, double, double) = { FillRand, FillGrow, FillFall};
+    void (*OrderDoubleOperations[3])(double*, int, double, double, double) = { FillSaw, FillSin, FillStep };
+    void (*LineralIntegerOperations[3])(int*, int, int, int) = { FillRand, FillGrow, FillFall };
+    void (*OrderIntegerOperations[3])(int*, int, int, int, int) = {  FillSaw, FillSin, FillStep };
+
+    auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
     
-    /*FillRand(arrFill, n, 10, 50000);
-    /*cout << "Рандомная последовательность дробных чисел" << endl;
-    File << "Рандомная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
+    // получаем длину массива
+    int lengthLin = sizeof(LineralOperations) / sizeof(LineralOperations[0]);
 
-    FillGrow(arrFill, n, 10, 50000);
-    /*cout << "Возрастающая последовательность дробных чисел" << endl;
-    File << "Возрастающая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
-
-
-    FillFall(arrFill, n, 10, 50000);
-    /*cout << "Убывающая последовательность дробных чисел" << endl;
-    File << "Убывающая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
-
-
-    FillSaw(arrFill, n, 10.0, 50000.0);
-    /*cout << "Пилообразная последовательность дробных чисел" << endl;
-    File << "Пилообразная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
-
-    FillSin(arrFill, n, 10.0, 50000.0);
-    /*cout << "Синусообразная последовательность дробных чисел" << endl;
-    File << "Синусообразная последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
-
-    FillStep(arrFill, n, 10.0, 50000.0);
-    /*cout << "Ступенчатая последовательность дробных чисел" << endl;
-    File << "Ступенчатая последовательность дробных чисел" << endl;
-    Writer(arrFill, n);*/
-    
+    for (int i = 0; i < lengthLin; i++)
+    {
+        LineralOperations[i](arrFill, n, 10, 20);    // вызов функции по указателю
+    }
+    for (int i = 0; i < lengthLin; i++)
+    {
+        OrderDoubleOperations[i](arrFill, n, 10, 20, 10);    // вызов функции по указателю
+    }
 
     int* Arr = new int[n];
 
-    FillRand(Arr, n, 10, 50000);
-    /*cout << "Рандомная последовательность целых чисел" << endl;
-    File << "Рандомная последовательность целых чисел" << endl;
-    Writer(Arr, n);*/
-
-
-    FillGrow(Arr, n, 10, 150000);
-    /*cout << "Возрастающая последовательность целых чисел" << endl;
-    File << "Возрастающая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);*/
-
-    FillFall(Arr, n, 10, 150000);
-    /*cout << "Убывающая последовательность целых чисел" << endl;
-    File << "Убывающая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);*/
-
-    FillSaw(Arr, n, 10, 50000);
-    /*cout << "Пилообразная последовательность целых чисел" << endl;
-    File << "Пилообразная последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);*/
-
-
-    FillSin(&Arr[0], n, 10, 50000);
-    /*cout << "Синусообразная последовательность целых чисел" << endl;
-    File << "Синусообразная последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);*/
-
-
-    FillStep(&Arr[0], n, 10, 50000);
-    /*cout << "Ступенчатая последовательность целых чисел" << endl;
-    File << "Ступенчатая последовательность целых чисел" << endl;
-    Writer(&Arr[0], n);*/
+    for (int i = 0; i < lengthLin; i++)
+    {
+        LineralIntegerOperations[i](Arr, n, 10, 20);    // вызов функции по указателю
+    }
+    for (int i = 0; i < lengthLin; i++)
+    {
+        OrderIntegerOperations[i](Arr, n, 10, 20, 10);    // вызов функции по указателю
+    }
     
-
     //delete [] Arr; почему-то не работает надо сделать
     //delete [] ArrFill; почему-то не работает надо подправить
     
