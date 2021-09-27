@@ -42,21 +42,23 @@ void FillSin(double* arr, int n, double min, double max, double period) {
     float k = period / (2 * PI);
 
     for (int i = 0; i < n; i++) {
-        double res =  min + max * sin(4 * 3.14159265 * ((float)i / (float)n) + 2 * PI * k);
+        double res =  min + max / 2 * sin(4 * 3.14159265 * ((float)i / (float)n) + 2 * PI * k);
         arr[i] = res;
     }
     File << "Синусообразная последовательность дробных чисел" << endl;
     Writer(arr, n);
 }
 
+
 void FillStep(double* arr, int n, double min, double max, double period) {
+    period = 3;
     double u = 0.0;
     for (int i = 0; i < n; i++) {
 
         arr[i] = min + double((double)(i) / period) - 0.3 * (fmod(i, period));
         u += 1.0;
         if (u == 2.0) u = 0.0;
-        
+
     }
     File << "Ступенчатая последовательность дробных чисел" << endl;
     Writer(arr, n);
@@ -160,19 +162,19 @@ void FillStep(int* arr, int length, int min, int max, int period) {
     Writer(arr, length);
 }
 void Writer(int* A, int length) {
-    for (int i = 0; i < length; i++) {
+    /*for (int i = 0; i < length; i++) {
         printf("%3.3i\n", A[i]);
         //cout << "arr[" << i << "] = \t" << A[i] << endl;
         File << "arr[" << i << "] = \t" << A[i] << endl;
-    }
+    }*/
 }
 void Writer(double* A, int length) {
-    for (int i = 0; i < length; i++) {
+    /*for (int i = 0; i < length; i++) {
 
         printf("%3.3f\n", A[i]);
         //cout << "arr[" << i << "] = \t" << A[i] << endl;
-        File << "arr[" << i << "] = \t" << A[i] << endl;
-    }
+        File << "ar r[" << i << "] = \t" << A[i] << endl;
+    }*/
 }
 int main()
 {
@@ -190,42 +192,66 @@ int main()
     void (*LineralIntegerOperations[3])(int*, int, int, int) = { FillRand, FillGrow, FillFall };
     void (*OrderIntegerOperations[3])(int*, int, int, int, int) = {  FillSaw, FillSin, FillStep };
 
-    auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
+    
     
     // получаем длину массива
     int lengthLin = sizeof(LineralOperations) / sizeof(LineralOperations[0]);
 
     for (int i = 0; i < lengthLin; i++)
     {
+        auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
+
         LineralOperations[i](arrFill, n, 10, 20);    // вызов функции по указателю
+        auto end = chrono::steady_clock::now();
+        // получаем время по окончанию формирования последовательности
+        auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
+        // получаем время работы в микросекундах
+        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+
     }
     for (int i = 0; i < lengthLin; i++)
     {
-        OrderDoubleOperations[i](arrFill, n, 10, 20, 10);    // вызов функции по указателю
+        auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
+
+        OrderDoubleOperations[i](arrFill, n, 10, 15, 10);    // вызов функции по указателю
+        auto end = chrono::steady_clock::now();
+        // получаем время по окончанию формирования последовательности
+        auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
+        // получаем время работы в микросекундах
+        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+
     }
 
     int* Arr = new int[n];
 
     for (int i = 0; i < lengthLin; i++)
     {
+        auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
+
         LineralIntegerOperations[i](Arr, n, 10, 20);    // вызов функции по указателю
+        auto end = chrono::steady_clock::now();
+        // получаем время по окончанию формирования последовательности
+        auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
+        // получаем время работы в микросекундах
+        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+
     }
     for (int i = 0; i < lengthLin; i++)
     {
+        auto begin = chrono::steady_clock::now(); // получаем время перед началом формирования последовательности
+
         OrderIntegerOperations[i](Arr, n, 10, 20, 10);    // вызов функции по указателю
+        auto end = chrono::steady_clock::now();
+        // получаем время по окончанию формирования последовательности
+        auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
+        // получаем время работы в микросекундах
+        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+
     }
     
     //delete [] Arr; почему-то не работает надо сделать
     //delete [] ArrFill; почему-то не работает надо подправить
     
-    auto end = chrono::steady_clock::now();
-    // получаем время по окончанию формирования последовательности
-    auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
-    // получаем время работы в микросекундах
-    cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
-    // вывод времени работы 
-
-
     File.close();
 
     return 0;
