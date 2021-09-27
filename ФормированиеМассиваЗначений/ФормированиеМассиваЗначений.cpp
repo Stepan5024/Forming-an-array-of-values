@@ -206,7 +206,7 @@ int main()
         // получаем время по окончанию формирования последовательности
         auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
         // получаем время работы в микросекундах
-        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+        cout <<  elapsed_ms.count() << endl;
 
     }
     for (int i = 0; i < lengthLin; i++)
@@ -218,7 +218,7 @@ int main()
         // получаем время по окончанию формирования последовательности
         auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
         // получаем время работы в микросекундах
-        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+        cout << elapsed_ms.count() <<  endl;
 
     }
 
@@ -233,7 +233,7 @@ int main()
         // получаем время по окончанию формирования последовательности
         auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
         // получаем время работы в микросекундах
-        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+        cout <<  elapsed_ms.count() <<  endl;
 
     }
     for (int i = 0; i < lengthLin; i++)
@@ -245,7 +245,7 @@ int main()
         // получаем время по окончанию формирования последовательности
         auto elapsed_ms = chrono::duration_cast<chrono::microseconds>(end - begin);
         // получаем время работы в микросекундах
-        cout << "Время работы алгоритма по формированию последовательности: " << elapsed_ms.count() << " (мкС)" << endl;
+        cout <<  elapsed_ms.count() << endl;
 
     }
     
